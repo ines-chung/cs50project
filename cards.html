@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- All except for "styles.css" obtained from W3 Schools and Bootstrap -->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        <title>Guess Who?</title>
+
+    </head>
+    <body>
+
+      <!-- Navbar -->
+        <nav class="navbar navbar-expand-sm navbar-update">
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">Guess Who?</a>
+
+          <!-- Links -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Play</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Leaderboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Sidebar from which to select questions -->
+        <!-- All question buttons have name="answer" -->
+        <form action="/play" method="post">
+          <div class="sidenav">
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Face
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="cheeksred" class="btn btn-primary btn-block">Rosy Cheeks?</button>
+                  <button type="submit" name="answer" value="sad" class="btn btn-primary btn-block">Frowning?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Eye Color
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="eyesblue" class="btn btn-primary btn-block">Blue Eyes?</button>
+                  <button type="submit" name="answer" value="eyesbrown" class="btn btn-primary btn-block">Brown Eyes?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Nose
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="nosebig" class="btn btn-primary btn-block">Big Nose?</button>
+                  <button type="submit" name="answer" value="nosesmall" class="btn btn-primary btn-block">Small Nose?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Mouth
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="mouthbig" class="btn btn-primary btn-block">Big Mouth?</button>
+                  <button type="submit" name="answer" value="mouthsmall" class="btn btn-primary btn-block">Small Mouth?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+                  Hair Color
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Black Hair?</button>
+                  <button type="submit" name="answer" value="hairbrown" class="btn btn-primary btn-block">Brown Hair?</button>
+                  <button type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Red Hair?</button>
+                  <button type="submit" name="answer" value="hairblonde" class="btn btn-primary btn-block">Blonde Hair?</button>
+                  <button type="submit" name="answer" value="hairwhite" class="btn btn-primary btn-block">White Hair?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+                  Hair Length
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="hairlong" class="btn btn-primary btn-block">Long Hair?</button>
+                  <button type="submit" name="answer" value="hairshort" class="btn btn-primary btn-block">Short Hair?</button>
+                  <button type="submit" name="answer" value="bald" class="btn btn-primary btn-block">Bald?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+                  Hair Texture
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="hairstraight" class="btn btn-primary btn-block">Straight Hair?</button>
+                  <button type="submit" name="answer" value="haircurly" class="btn btn-primary btn-block">Curly Hair?</button>
+                  <button type="submit" name="answer" value="hairpartition" class="btn btn-primary btn-block">Parted Down the Middle?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+                  Facial Hair
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="hairfacial" class="btn btn-primary btn-block">Any Facial Hair?</button>
+                  <button type="submit" name="answer" value="beard" class="btn btn-primary btn-block">Beard?</button>
+                  <button type="submit" name="answer" value="mustache" class="btn btn-primary btn-block">Mustache?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Accessories
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="hairstuff" class="btn btn-primary btn-block">Any Hair Accessories?</button>
+                  <button type="submit" name="answer" value="hat" class="btn btn-primary btn-block">Hat?</button>
+                  <button type="submit" name="answer" value="earrings" class="btn btn-primary btn-block">Earrings?</button>
+                  <button type="submit" name="answer" value="glasses" class="btn btn-primary btn-block">Glasses?</button>
+                </div>
+              </div>
+            </div>
+            <div class="dropdown dropright">
+              <div class="dropdown dropright">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                  Gender
+                </button>
+                <div class="dropdown-menu">
+                  <button type="submit" name="answer" value="female" class="btn btn-primary btn-block">Female?</button>
+                  <button type="submit" name="answer" value="male" class="btn btn-primary btn-block">Male?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Image grid -->
+        <div class="card_container">
+            <div class="row">
+              <div class="column">
+                <img src="newcharacters/Alex.PNG">
+                <img src="newcharacters/Alfred.PNG">
+                <img src="newcharacters/Anita.PNG">
+                <img src="newcharacters/Anne.PNG">
+                <img src="newcharacters/Bernard.PNG">
+                <img src="newcharacters/Bill.PNG">
+                <img src="newcharacters/Charles.PNG">
+                <img src="newcharacters/Claire.PNG">
+              </div>
+               <div class="column">
+                <img src="newcharacters/David.PNG">
+                <img src="newcharacters/Eric.PNG">
+                <img src="newcharacters/Frans.PNG">
+                <img src="newcharacters/George.PNG">
+                <img src="newcharacters/Herman.PNG">
+                <img src="newcharacters/Joe.PNG">
+                <img src="newcharacters/Maria.PNG">
+                <img src="newcharacters/Max.PNG">
+              </div>
+               <div class="column">
+                <img src="newcharacters/Paul.PNG">
+                <img src="newcharacters/Peter.PNG">
+                <img src="newcharacters/Philip.PNG">
+                <img src="newcharacters/Richard.PNG">
+                <img src="newcharacters/Robert.PNG">
+                <img src="newcharacters/Sam.PNG">
+                <img src="newcharacters/Susan.PNG">
+                <img src="newcharacters/Tom.PNG">
+              </div>
+            </div>
+        </div>
+
+
+
+    </body>
+
+</html>
