@@ -1,0 +1,107 @@
+body {
+  height: 858px;
+}
+
+.navbar-brand {
+  width: 100%;
+  font-weight: bold;
+  font-size: 50px;
+  color: #007bff;
+  font-family: 'Righteous', cursive;
+  padding-left: 2%;
+}
+
+#logo {
+  width: 14%;
+}
+
+.navbar-update{
+  background-color: #fb4;
+  font-size: 25px;
+  font-weight: bold;
+  color: #345995;
+}
+
+.nav-item {
+  color: #345995;
+  font-size: 35px;
+  font-family: 'Righteous', cursive;
+
+}
+
+
+.sidenav {
+  height: 100%;
+  margin-top: 100px;
+  padding-top: 2%;
+  width: 14%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #007bff;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #007bff;
+}
+
+.dropright {
+  padding-bottom: 5%;
+  background-color: #007bff;
+  font-size: 20px;
+}
+
+
+
+.btn {
+  width: 100%;
+  height: 20%;
+  font-size: 100%;
+  background-color: #e40066;
+  padding-bottom: 5%;
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
+.item-color {
+  color: black;
+}
+
+.card_container {
+  padding-top: 30px;
+  padding-right: 13%;
+  text-align: right;
+  float: right;
+  width: 78%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.column {
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  border: 4px solid black;
+  width: 11%;
+}
+
+
