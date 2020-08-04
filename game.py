@@ -10,24 +10,6 @@ db = cs50.SQL("sqlite:///characters.db")
 
 all_names = db.execute("SELECT name, id FROM characters")
 #print (all_names)
-#
-my_board = np.array([[person["name"], True] for person in all_names])
-user_board = np.array([[person["name"], True] for person in all_names])
-
-#print(user_board)
-
-from math import *
-import cs50
-import numpy as np
-import random
-
-
-'''PREAMBLE'''
-
-db = cs50.SQL("sqlite:///characters.db")
-
-all_names = db.execute("SELECT name, id FROM characters")
-#print (all_names)
 
 my_board = np.array([[person["name"], True] for person in all_names])
 user_board = np.array([[person["name"], True] for person in all_names])
@@ -87,7 +69,7 @@ def decision1 (features_matrix, my_board):
 def num_in(board):
     num_in = 0
     for card in board:
-        if card[1] == True:
+        if card[1] == 'True':
             num_in += 1
     return(num_in)
 
@@ -100,10 +82,10 @@ def game_finished(board1, board2, correct_name):
         if num_in_1 == 1:
             return (True, 0)
         num_in_2 = num_in(board2)
-        if num_in_1 == 1:
+        if num_in_2 == 1:
             return (True, 1)
         else:
-            return (False)
+            return (False, 2)
 
 
 '''GAME'''
@@ -111,8 +93,8 @@ def game_finished(board1, board2, correct_name):
 while (True):
 
     '''CHECK IF WON'''
-    game = game_finished(my_board, user_board, 0)
-    if game[0] == True:
+    game, winner = game_finished(my_board, user_board, 0)
+    if num_in(user_board) == 1 or num_in(my_board) == 1:
         break
 
     '''USER'S TURN'''
@@ -152,14 +134,13 @@ while (True):
 
 
     '''CHECK IF WON AGAIN'''
-    game = game_finished(my_board, user_board, 0)
-    if game[0] == True:
+    game, winner = game_finished(my_board, user_board, 0)
+    if num_in(user_board) == 1 or num_in(my_board) == 1:
         break
-
 
     '''COMPUTER'S TURN'''
 
-    comp_question_index = decision(comp_features_matrix, my_board)
+    comp_question_index = decision1(comp_features_matrix, my_board)
     print(f"I will look at {list_of_features[comp_question_index]}")
 
     if features_matrix[comp_question_index][users_choice_index] == 1:
@@ -181,7 +162,6 @@ while (True):
 
 '''DECLARE THE WINNER'''
 
-winner = game[1]
 print(f"THE WINNER IS: {winner}")
 
 
