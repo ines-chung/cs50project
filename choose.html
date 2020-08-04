@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- All except for "styles.css" obtained from W3 Schools and Bootstrap -->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- Google font for navbar -->
+        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+
+        <!-- JS for button and dropdown interactivity -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+        <title>Guess Who?</title>
+
+    </head>
+    <body>
+
+      <!-- Navbar -->
+        <nav class="navbar navbar-expand-sm navbar-update">
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">
+            GUESS WHO?
+          </a>
+
+          <!-- Links -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Play</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Leaderboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+          </ul>
+        </nav>
+
+
+        <h1 class="headline">Choose your character!</h1>
+        <!-- Image grid -->
+        <form action="/play" method="post">
+            <div class="card_container_choose">
+                <div class="row">
+                  <div class="column">
+                    <input type="image" src="newcharacters/Alex.PNG" name="choose" class="character" value="Alex"/>
+                    <input type="image" src="newcharacters/Alfred.PNG" name="choose" class="character" value="Alfred"/>
+                    <input type="image" src="newcharacters/Anita.PNG" name="choose" class="character" value="Anita"/>
+                    <input type="image" src="newcharacters/Anne.PNG" name="choose" class="character" value="Anne"/>
+                    <input type="image" src="newcharacters/Bernard.PNG" name="choose" class="character" value="Bernard"/>
+                    <input type="image" src="newcharacters/Bill.PNG" name="choose" class="character" value="Bill"/>
+                    <input type="image" src="newcharacters/Charles.PNG" name="choose" class="character" value="Charles"/>
+                    <input type="image" src="newcharacters/Claire.PNG" name="choose" class="character" value="Claire"/>
+                  </div>
+                   <div class="column">
+                     <input type="image" src="newcharacters/David.PNG" name="choose" class="character" value="David"/>
+                     <input type="image" src="newcharacters/Eric.PNG" name="choose" class="character" value="Eric"/>
+                     <input type="image" src="newcharacters/Frans.PNG" name="choose" class="character" value="Frans"/>
+                     <input type="image" src="newcharacters/George.PNG" name="choose" class="character" value="George"/>
+                     <input type="image" src="newcharacters/Herman.PNG" name="choose" class="character" value="Herman"/>
+                     <input type="image" src="newcharacters/Joe.PNG" name="choose" class="character" value="Joe"/>
+                     <input type="image" src="newcharacters/Maria.PNG" name="choose" class="character" value="Maria"/>
+                     <input type="image" src="newcharacters/Max.PNG" name="choose" class="character" value="Max"/>
+                  </div>
+                   <div class="column">
+                     <input type="image" src="newcharacters/Paul.PNG" name="choose" class="character" value="Paul"/>
+                     <input type="image" src="newcharacters/Peter.PNG" name="choose" class="character" value="Peter"/>
+                     <input type="image" src="newcharacters/Philip.PNG" name="choose" class="character" value="Philip"/>
+                     <input type="image" src="newcharacters/Richard.PNG" name="choose" class="character" value="Richard"/>
+                     <input type="image" src="newcharacters/Robert.PNG" name="choose" class="character" value="Robert"/>
+                     <input type="image" src="newcharacters/Sam.PNG" name="choose" class="character" value="Sam"/>
+                     <input type="image" src="newcharacters/Susan.PNG" name="choose" class="character" value="Susan"/>
+                     <input type="image" src="newcharacters/Tom.PNG" name="choose" class="character" value="Tom"/>
+                  </div>
+                </div>
+            </div>
+        </form>
+
+
+
+    </body>
+
+</html>
