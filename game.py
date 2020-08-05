@@ -9,12 +9,10 @@ import random
 db = cs50.SQL("sqlite:///characters.db")
 
 all_names = db.execute("SELECT name, id FROM characters")
-#print (all_names)
 
 my_board = np.array([[person["name"], True] for person in all_names])
 user_board = np.array([[person["name"], True] for person in all_names])
 
-#print(user_board)
 
 list_of_features = ["hairpartition", "haircurly", "hat", "bald", "hairstuff", "hairlong", "hairginger", "hairwhite", "hairbrown", "hairblonde", "hairblack", "mouthbig", "nosebig", "cheeksred", "eyesblue", "sad", "hairfacial", "mustache", "beard", 'glasses', "earrings", "female"]
 all_ = (db.execute("SELECT * FROM characters"))
@@ -30,8 +28,6 @@ for feature in list_of_features:
 
 user_features_matrix = np.array(features_matrix)
 comp_features_matrix = np.array(features_matrix)
-print (user_features_matrix)
-
 
 user_asked = set()
 
@@ -59,9 +55,9 @@ def decision1 (features_matrix, my_board):
             if my_board[i][1] == 'True':
                 nelim += 1
                 probability += feature[i]
-
+    
         probabilities.append(abs(probability/nelim - 0.5))
-
+    
     comp_question_index = np.argmin(probabilities)
     return(comp_question_index)
 
@@ -74,55 +70,54 @@ def num_in(board):
     return(num_in)
 
 #check if someone has one card left.
-def game_finished(board1, board2, correct_name):
+def game_finished(my_board, user_board, correct_name):
     if correct_name == 1:
-        return (True, 1)
+        return ('User')
     else:
-        num_in_1 = num_in(board1)
+        num_in_1 = num_in(my_board)
         if num_in_1 == 1:
-            return (True, 0)
-        num_in_2 = num_in(board2)
+            return ('Computer')
+        num_in_2 = num_in(user_board)
         if num_in_2 == 1:
-            return (True, 1)
+            return ("User")
         else:
-            return (False, 2)
+            return ("None")
 
 
 '''GAME'''
 
 while (True):
-
+    
     '''CHECK IF WON'''
-    game, winner = game_finished(my_board, user_board, 0)
     if num_in(user_board) == 1 or num_in(my_board) == 1:
+        winner = game_finished(my_board, user_board, 0)
         break
-
+    
     '''USER'S TURN'''
     #index of the feature the user wants to question:
-    print(list_of_features)
-
-
     question_index = input("What feature are you gonna ask about?")
     try:
         question_index = int(question_index)
-
-    #If the user entered a string, check to see if it is the computer's choice name.
+        
+    #If the user entered a string, check to see if it is the computer's choice name. 
     except:
         if question_index == computers_choice:
             game = game_finished(my_board, user_board, 1)
             break
-    else:
+        else:
+            user_board[np.where(user_board == question_index)[0]][1] = False
+    else: 
         #dont ask the same question twice
         user_asked.add(question_index)
         #Ask the question
         if features_matrix[question_index][computers_choice_index] == 1:
-            has_feature = 1
+            has_feature = 1  
             #print answer
             print(f"yes, my person is {list_of_features[question_index]}")
         else:
             has_feature = 0
             print(f"no, my person isnt {list_of_features[question_index]}")
-
+        
         #Update the user's board
         for i in range(len(user_board)):
             if user_features_matrix[question_index][i] != has_feature:
@@ -130,19 +125,18 @@ while (True):
                 user_board[i][1] = False
         print("YOUR UPDATED BOARD:")
         print(user_board)
-
-
-
+        
+        
     '''CHECK IF WON AGAIN'''
-    game, winner = game_finished(my_board, user_board, 0)
     if num_in(user_board) == 1 or num_in(my_board) == 1:
+        winner = game_finished(my_board, user_board, 0)
         break
-
+    
     '''COMPUTER'S TURN'''
-
+    
     comp_question_index = decision1(comp_features_matrix, my_board)
     print(f"I will look at {list_of_features[comp_question_index]}")
-
+    
     if features_matrix[comp_question_index][users_choice_index] == 1:
         has_feature = 1
         #print answer
@@ -150,7 +144,7 @@ while (True):
     else:
         has_feature = 0
         print(f"no, your person doesnt have {list_of_features[comp_question_index]}")
-
+    
     #update the user's list of names
     for i in range(len(my_board)):
         if comp_features_matrix[comp_question_index][i] != has_feature:
@@ -162,9 +156,8 @@ while (True):
 
 '''DECLARE THE WINNER'''
 
+
 print(f"THE WINNER IS: {winner}")
-
-
 
 
 
@@ -266,3 +259,10 @@ while True:
 
 
   '''
+
+
+
+
+
+
+
