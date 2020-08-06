@@ -61,7 +61,7 @@ db = cs50.SQL("sqlite:///characters.db")
 global all_names
 all_names = db.execute("SELECT name, id FROM characters")
 all_names = [person["name"] for person in all_names]
-list_of_features = ["hairpartition", "haircurly", "hat", "bald", "hairstuff", "hairlong", "hairginger", "hairwhite", "hairbrown", "hairblonde", "hairblack", "mouthbig", "nosebig", "cheeksred", "eyesblue", "sad", "hairfacial", "mustache", "beard", 'glasses', "earrings", "female"]
+list_of_features = ["hairpartition", "haircurly", "hat", "bald", "hairstuff", "hairlong", "hairginger", "hairwhite", "hairbrown", "hairblonde", "hairblack", "mouthbig", "nosebig", "cheeksred", "eyesblue", "sad", "hairfacial", "mustache", "beard", 'glasses', "earrings", "female", "male", "hairstraight", "mouthsmall", "nosesmall", "hairshort"]
 all_ = (db.execute("SELECT * FROM characters"))
 
 global features_matrix
@@ -73,12 +73,22 @@ for feature in list_of_features:
     #print(feature_lst)
     features_matrix.append(feature_lst)
 
+global my_board
+global user_board
+global users_choice_index
+global computers_choice_index
+global computers_choice
+global is_elim
+is_elim = set()
 
-@app.route("/index", methods=["GET"])
-def index():
-    return render_template("index.html")
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
+def about():
+    return render_template("about.html")
+
+
+
+@app.route("/choose", methods=["GET", "POST"])
 def choose():
     if request.method == "POST":
         #TODO #something about the sessions
@@ -87,18 +97,17 @@ def choose():
         global my_board
         global user_board
         global users_choice_index
+
         global computers_choice_index
         global computers_choice
         my_board = np.array([[person, True] for person in all_names])
         user_board = np.array([[person, True] for person in all_names])
 
-        session['myboard'] = my_board.tolist()
-
         #users_choice = request.form.get("choose")
-        
+
         for name in all_names:
-            if request.form.get("test") != None:
-                users_choice = request.form.get("test")
+            if request.form.get("choose") != None:
+                users_choice = request.form.get("choose")
                 break
 
 
@@ -109,46 +118,49 @@ def choose():
         computers_choice_index = random.randint(0, len(my_board)-1)
         computers_choice = my_board[computers_choice_index][0]
 
+        my_board = my_board.tolist()
+        user_board = user_board.tolist()
+
         # remind the user of their choice.
         flash(f" you have successfully chosen {users_choice}")
 
         #redirect to the game.html page to start the questions
-        return render_template("game.html", users_choice_index = users_choice_index, user_board = user_board.tolist(), computers_choice_index = computers_choice_index, my_board = my_board.tolist())
+        return render_template("game.html", users_choice_index = users_choice_index, user_board = user_board, computers_choice_index = computers_choice_index, my_board = my_board)
     else:
         return render_template("choose.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        #TODOD
+        #TODO
+
+
         return render_template("register.html")
     else:
         return render_template("register.html")
 
+
+
+
+
+
+
 @app.route("/game", methods=["GET", "POST"])
 def game():
+    global my_board
+    global user_board
+    global users_choice_index
+    global computers_choice_index
+    global computers_choice
+
+    global list_of_features
+    global features_matrix
+
     if request.method == "POST":
-            
-            
+
+
         '''SET UP BOARDS AND CHOICES'''
-        
-        '''my_board = session.get('my_board', None) #request.args.get('my_board')
-        
-        user_board = request.args.get('user_board')
 
-        users_choice_index =  request.args.get('users_choice_index')
-
-        
-        computers_choice_index = request.args.get('computers_choice_index')'''
-        
-        global my_board
-        global user_board
-        global users_choice_index
-        global computers_choice_index
-        global computers_choice        
-
-        global list_of_features
-        global features_matrix
 
         '''CHECK IF WON'''
         if num_in(user_board) == 1 or num_in(my_board) == 1:
@@ -159,15 +171,18 @@ def game():
 
         '''USER'S TURN'''
         question_index = request.form.get('answer')
-        question_index = int(np.where(list_of_features == question_index)[0])
+        #question_index = int(np.where(list_of_features == question_index)[0])
+        question_index = int(list_of_features.index(question_index))
 
 
         #ADD A SECTION FOR IF THE USER INPUTS A NAME
         #Ask the question
         if features_matrix[question_index][computers_choice_index] == 1:
             has_feature = 1
+            flash(f"Yes, I have{list_of_features[question_index]}")
         else:
             has_feature = 0
+            flash(f"No, I dont have{list_of_features[question_index]}")
 
         #Update the user's board
         for i in range(len(user_board)):
@@ -184,7 +199,7 @@ def game():
 
 
         '''COMPUTERS TURN'''
-        comp_question_index = decision1(comp_features_matrix, my_board)
+        comp_question_index = decision1(features_matrix, my_board)
 
         if features_matrix[comp_question_index][users_choice_index] == 1:
             has_feature = 1
@@ -200,9 +215,10 @@ def game():
             if features_matrix[comp_question_index][i] != has_feature:
                 #eliminate from the board
                 my_board[i][1] = False
+                is_elim.add(my_board[i][0])
 
         '''FLASH SOMETHING FOR THE RESULT OF THE USERS QUESTION'''
-        flash(f"No, I dont have{list_of_features[question_index]}")
+
 
         '''FLASH THE COMPUTER"S QUESTION'''
         flash(f"Does your person have{list_of_features[comp_question_index]}")
@@ -211,12 +227,7 @@ def game():
 
     else:
         '''SET UP BOARDS AND CHOICES'''
-        
-        
-        global my_board 
-        global user_board 
-        global users_choice_index 
-        global computers_choice_index
+
         return render_template("game.html", users_choice_index = users_choice_index, user_board = user_board, computers_choice_index = computers_choice_index, my_board = my_board)
 
 
