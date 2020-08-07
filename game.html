@@ -8,181 +8,185 @@
 
 {% block main %}
 
-    <!-- Sidebar from which to select questions -->
-    <!-- All question buttons have name="answer" -->
-    <form action="/game" method="post">
-      <div class="sidenav">
-        <div id="firstdropright" class="dropdown dropright">
 
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Face
-          </button>
-          <div class="dropdown-menu">
-          {% for feature in features %}
-            <button onload="deactivate({{ feature|tojson|safe }})" id="cheeksred" type="submit" name="answer" value="cheeksred" class="btn btn-primary btn-block">Rosy Cheeks?</button>
-          {% endfor %}
-            <button id="sad" type="submit" name="answer" value="sad" class="btn btn-primary btn-block">Frowning?</button>
-          </div>
+  <!-- Sidebar from which to select questions -->
+  <form action="/game" method="post">
+    <div class="sidenav">
+
+     <!-- Facial features questions -->
+      <div id="firstdropright" class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Face
+        </button>
+        <div class="dropdown-menu">
+          <button {% if cheeksred in asked %} disabled {% endif %} type="submit" name="answer" value="cheeksred" class="btn btn-primary btn-block">Rosy Cheeks?</button>
+          <button {% if sad in asked %} disabled {% endif %} type="submit" name="answer" value="sad" class="btn btn-primary btn-block">Frowning?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Eye Color
-          </button>
-          <div class="dropdown-menu">
-            <button id="eyesblue" type="submit" name="answer" value="eyesblue" class="btn btn-primary btn-block">Blue Eyes?</button>
-            <button id="eyesbrown" type="submit" name="answer" value="eyesbrown" class="btn btn-primary btn-block">Brown Eyes?</button>
-          </div>
+      </div>
+
+      <!-- Eye color questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Eye Color
+        </button>
+        <div class="dropdown-menu">
+          <button {% if eyesblue in asked %} disabled {% endif %} id="eyesblue" type="submit" name="answer" value="eyesblue" class="btn btn-primary btn-block">Blue Eyes?</button>
+          <button {% if eyesbrown in asked %} disabled {% endif %} type="submit" name="answer" value="eyesbrown" class="btn btn-primary btn-block">Brown Eyes?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Nose
-          </button>
-          <div class="dropdown-menu">
-            <button id="nosebig" type="submit" name="answer" value="nosebig" class="btn btn-primary btn-block">Big Nose?</button>
-            <button id="nosesmall" type="submit" name="answer" value="nosesmall" class="btn btn-primary btn-block">Small Nose?</button>
-          </div>
+      </div>
+
+      <!-- Nose features questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Nose
+        </button>
+        <div class="dropdown-menu">
+          <button {% if nosebig in asked %} disabled {% endif %} type="submit" name="answer" value="nosebig" class="btn btn-primary btn-block">Big Nose?</button>
+          <button {% if nosesmall in asked %} disabled {% endif %} type="submit" name="answer" value="nosesmall" class="btn btn-primary btn-block">Small Nose?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Mouth
-          </button>
-          <div class="dropdown-menu">
-            <button id="mouthbig" type="submit" name="answer" value="mouthbig" class="btn btn-primary btn-block">Big Mouth?</button>
-            <button id="mouthsmall" type="submit" name="answer" value="mouthsmall" class="btn btn-primary btn-block">Small Mouth?</button>
-          </div>
+      </div>
+
+      <!-- Mouth features questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Mouth
+        </button>
+        <div class="dropdown-menu">
+          <button {% if mouthbig in asked %} disabled {% endif %} type="submit" name="answer" value="mouthbig" class="btn btn-primary btn-block">Big Mouth?</button>
+          <button {% if mouthsmall in asked %} disabled {% endif %} type="submit" name="answer" value="mouthsmall" class="btn btn-primary btn-block">Small Mouth?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
-            Hair Color
-          </button>
-          <div class="dropdown-menu">
-            <button id="hairblack" type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Black Hair?</button>
-            <button id="hairbrown" type="submit" name="answer" value="hairbrown" class="btn btn-primary btn-block">Brown Hair?</button>
-            <button id="hairginger" type="submit" name="answer" value="hairginger" class="btn btn-primary btn-block">Red Hair?</button>
-            <button id="hairblonde" type="submit" name="answer" value="hairblonde" class="btn btn-primary btn-block">Blonde Hair?</button>
-            <button id="hairwhite" type="submit" name="answer" value="hairwhite" class="btn btn-primary btn-block">White Hair?</button>
-          </div>
+      </div>
+
+      <!-- Hair color questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+          Hair Color
+        </button>
+        <div class="dropdown-menu">
+          <button {% if hairblack in asked %} disabled {% endif %} type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Black Hair?</button>
+          <button {% if hairbrown in asked %} disabled {% endif %} type="submit" name="answer" value="hairbrown" class="btn btn-primary btn-block">Brown Hair?</button>
+          <button {% if hairginger in asked %} disabled {% endif %} type="submit" name="answer" value="hairginger" class="btn btn-primary btn-block">Red Hair?</button>
+          <button {% if hairblonde in asked %} disabled {% endif %} type="submit" name="answer" value="hairblonde" class="btn btn-primary btn-block">Blonde Hair?</button>
+          <button {% if hairwhite in asked %} disabled {% endif %} type="submit" name="answer" value="hairwhite" class="btn btn-primary btn-block">White Hair?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
-            Hair Length
-          </button>
-          <div class="dropdown-menu">
-            <button id="hairlong" type="submit" name="answer" value="hairlong" class="btn btn-primary btn-block">Long Hair?</button>
-            <button id="hairshort" type="submit" name="answer" value="hairshort" class="btn btn-primary btn-block">Short Hair?</button>
-            <button id="bald" type="submit" name="answer" value="bald" class="btn btn-primary btn-block">Bald?</button>
-          </div>
+      </div>
+
+      <!-- Hair length questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+          Hair Length
+        </button>
+        <div class="dropdown-menu">
+          <button {% if hairlong in asked %} disabled {% endif %} type="submit" name="answer" value="hairlong" class="btn btn-primary btn-block">Long Hair?</button>
+          <button {% if hairshort in asked %} disabled {% endif %} type="submit" name="answer" value="hairshort" class="btn btn-primary btn-block">Short Hair?</button>
+          <button {% if bald in asked %} disabled {% endif %} type="submit" name="answer" value="bald" class="btn btn-primary btn-block">Bald?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
-            Hair Texture
-          </button>
-          <div class="dropdown-menu">
-            <button id="hairstraight" type="submit" name="answer" value="hairstraight" class="btn btn-primary btn-block">Straight Hair?</button>
-            <button id="haircurly" type="submit" name="answer" value="haircurly" class="btn btn-primary btn-block">Curly Hair?</button>
-            <button id="hairpartition" type="submit" name="answer" value="hairpartition" class="btn btn-primary btn-block">Parted Down the Middle?</button>
-          </div>
+      </div>
+
+      <!-- Hair texture questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+          Hair Texture
+        </button>
+        <div class="dropdown-menu">
+          <button {% if hairstraight in asked %} disabled {% endif %} type="submit" name="answer" value="hairstraight" class="btn btn-primary btn-block">Straight Hair?</button>
+          <button {% if haircurly in asked %} disabled {% endif %} type="submit" name="answer" value="haircurly" class="btn btn-primary btn-block">Curly Hair?</button>
+          <button {% if hairpartition in asked %} disabled {% endif %} type="submit" name="answer" value="hairpartition" class="btn btn-primary btn-block">Parted Down the Middle?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
-            Facial Hair
-          </button>
-          <div class="dropdown-menu">
-            <button id="hairfacial" type="submit" name="answer" value="hairfacial" class="btn btn-primary btn-block">Any Facial Hair?</button>
-            <button id="beard" type="submit" name="answer" value="beard" class="btn btn-primary btn-block">Beard?</button>
-            <button id="mustache" type="submit" name="answer" value="mustache" class="btn btn-primary btn-block">Mustache?</button>
-          </div>
+      </div>
+
+      <!-- Facial hair features questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle width" data-toggle="dropdown">
+          Facial Hair
+        </button>
+        <div class="dropdown-menu">
+          <button {% if hairfacial in asked %} disabled {% endif %} type="submit" name="answer" value="hairfacial" class="btn btn-primary btn-block">Any Facial Hair?</button>
+          <button {% if beard in asked %} disabled {% endif %} type="submit" name="answer" value="beard" class="btn btn-primary btn-block">Beard?</button>
+          <button {% if mustache in asked %} disabled {% endif %} type="submit" name="answer" value="mustache" class="btn btn-primary btn-block">Mustache?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Accessories
-          </button>
-          <div class="dropdown-menu">
-            <button id="hairstuff" type="submit" name="answer" value="hairstuff" class="btn btn-primary btn-block">Any Hair Accessories?</button>
-            <button id="hat" type="submit" name="answer" value="hat" class="btn btn-primary btn-block">Hat?</button>
-            <button id="earrings" type="submit" name="answer" value="earrings" class="btn btn-primary btn-block">Earrings?</button>
-            <button id="glasses" type="submit" name="answer" value="glasses" class="btn btn-primary btn-block">Glasses?</button>
-          </div>
+      </div>
+
+      <!-- Accessories questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Accessories
+        </button>
+        <div class="dropdown-menu">
+          <button {% if hairstuff in asked %} disabled {% endif %} type="submit" name="answer" value="hairstuff" class="btn btn-primary btn-block">Any Hair Accessories?</button>
+          <button {% if hat in asked %} disabled {% endif %} type="submit" name="answer" value="hat" class="btn btn-primary btn-block">Hat?</button>
+          <button {% if earrings in asked %} disabled {% endif %} type="submit" name="answer" value="earrings" class="btn btn-primary btn-block">Earrings?</button>
+          <button {% if glasses in asked %} disabled {% endif %} type="submit" name="answer" value="glasses" class="btn btn-primary btn-block">Glasses?</button>
         </div>
-        <div class="dropdown dropright">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            Gender
-          </button>
-          <div class="dropdown-menu">
-            <button id="female" type="submit" name="answer" value="female" class="btn btn-primary btn-block">Female?</button>
-            <button id="male" type="submit" name="answer" value="male" class="btn btn-primary btn-block">Male?</button>
-          </div>
+      </div>
+
+      <!-- Gender questions -->
+      <div class="dropdown dropright">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          Gender
+        </button>
+        <div class="dropdown-menu">
+          <button {% if female in asked %} disabled {% endif %} type="submit" name="answer" value="female" class="btn btn-primary btn-block">Female?</button>
+          <button {% if male in asked %} disabled {% endif %} type="submit" name="answer" value="male" class="btn btn-primary btn-block">Male?</button>
         </div>
+      </div>
+    </div>
+  </form>
+
+
+  <!-- Image grid depicting characters -->
+  <div class="card_container">
+    <form action="/game" method="post">
+      <div class="row">
+        <div class="column">
+          <img {% if 'Alex' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Alex.png">
+          <img {% if 'Alfred' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Alfred.png">
+          <img {% if 'Anita' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Anita.png">
+          <img {% if 'Anne' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Anne.png">
+          <img {% if 'Bernard' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Bernard.png">
+          <img {% if 'Bill' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Bill.png">
+          <img {% if 'Charles' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Charles.png">
+          <img {% if 'Claire' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Claire.png">
+        </div>
+        <div class="column">
+          <img {% if 'David' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/David.png">
+          <img {% if 'Eric' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Eric.png">
+          <img {% if 'Frans' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Frans.png">
+          <img {% if 'George' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/George.png">
+          <img {% if 'Herman' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Herman.png">
+          <img {% if 'Joe' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Joe.png">
+          <img {% if 'Maria' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Maria.png">
+          <img {% if 'Max' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Max.png">
+        </div>
+        <div class="column">
+          <img {% if 'Paul' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Paul.png">
+          <img {% if 'Peter' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Peter.png">
+          <img {% if 'Philip' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Philip.png">
+          <img {% if 'Richard' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Richard.png">
+          <img {% if 'Robert' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Robert.png">
+          <img {% if 'Sam' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Sam.png">
+          <img {% if 'Susan' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Susan.png">
+          <img {% if 'Tom' in eliminated %} style='filter: grayscale(1)' {% endif %} src="../static/newcharacters/Tom.png">
+        </div>
+      </div>
+
+      <!-- Select menu to guess the character by that character's name-->
+      <h1 id="guess">Guess the mystery character!</h1>
+      <div class="form-group">
+        <select id="guessname" name="guessname">
+            <option disabled selected value>NAME</option>
+
+            {% for character in user_board %}
+              {% if character[1] == 'True' %}
+                  <option value="{{ character[0] }}">{{ character[0] }}</option>
+              {% endif %}
+            {% endfor %}
+
+        </select>
+        <button type="submit" name="finalanswer" class="btn btn-primary btn-block finanl">Guess!</button>
       </div>
     </form>
-
-    <!-- Image grid -->
-
-        <div class="card_container">
-          <form action="/game" method="post">
-            <div class="row">
-              <div class="column">
-              {% for character in eliminated %}
-                <img onload="grayscale('{{ character|tojson|safe }}')" id="Alex" src="../static/newcharacters/Alex.png">
-              {% endfor %}
-                <img id="Alfred" src="../static/newcharacters/Alfred.png">
-                <img id="Anita" src="../static/newcharacters/Anita.png">
-                <img id="Anne" src="../static/newcharacters/Anne.png">
-                <img id="Bernard" src="../static/newcharacters/Bernard.png">
-                <img id="Bill" src="../static/newcharacters/Bill.png">
-                <img id="Charles" src="../static/newcharacters/Charles.png">
-                <img id="Claire" src="../static/newcharacters/Claire.png">
-              </div>
-              <div class="column">
-                <img id="David" src="../static/newcharacters/David.png">
-                <img id="Eric" src="../static/newcharacters/Eric.png">
-                <img id="Frans" src="../static/newcharacters/Frans.png">
-                <img id="George" src="../static/newcharacters/George.png">
-                <img id="Herman" src="../static/newcharacters/Herman.png">
-                <img id="Joe" src="../static/newcharacters/Joe.png">
-                <img id="Maria" src="../static/newcharacters/Maria.png">
-                <img id="Max" src="../static/newcharacters/Max.png">
-              </div>
-              <div class="column">
-                <img id="Paul" src="../static/newcharacters/Paul.png">
-                <img id="Peter" src="../static/newcharacters/Peter.png">
-                <img id="Philip" src="../static/newcharacters/Philip.png">
-                <img id="Richard" src="../static/newcharacters/Richard.png">
-                <img id="Robert" src="../static/newcharacters/Robert.png">
-                <img id="Sam" src="../static/newcharacters/Sam.png">
-                <img id="Susan" src="../static/newcharacters/Susan.png">
-                <img id="Tom" src="../static/newcharacters/Tom.png">
-              </div>
-            </div>
-
-        <!-- Guess the character by that character's name-->
-          <h1 id="guess">Guess the mystery character!</h1>
-          <div class="form-group">
-            <select id="guessname" name="guessname">
-                <option disabled selected value>NAME</option>
-
-                {% for character in user_board %}
-                    {% if character[1] == 'True' %}
-                        <option value="{{ character[0] }}">{{ character[0] }}</option>
-                    {% endif %}
-                {% endfor %}
-
-            </select>
-            <button type="submit" name="finalanswer" class="btn btn-primary btn-block finanl">Guess!</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- JS function to convert eliminate characters to black and white -->
-      <script>
-          function grayscale(character) {
-              document.getElementById(character).style.filter = "grayscale(100%)";
-          }
-
-          function deactivate(button) {
-              document.getElementById(button).disabled = true;
-          }
-      </script>
+  </div>
 
 
 {% endblock %}
