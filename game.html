@@ -55,7 +55,7 @@
           <div class="dropdown-menu">
             <button type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Black Hair?</button>
             <button type="submit" name="answer" value="hairbrown" class="btn btn-primary btn-block">Brown Hair?</button>
-            <button type="submit" name="answer" value="hairblack" class="btn btn-primary btn-block">Red Hair?</button>
+            <button type="submit" name="answer" value="hairginger" class="btn btn-primary btn-block">Red Hair?</button>
             <button type="submit" name="answer" value="hairblonde" class="btn btn-primary btn-block">Blonde Hair?</button>
             <button type="submit" name="answer" value="hairwhite" class="btn btn-primary btn-block">White Hair?</button>
           </div>
@@ -115,69 +115,67 @@
 
     <!-- Image grid -->
 
-      <div onload="grayscale()" class="card_container">
-        <form action="/game" method="post">
-          <div class="row">
-            <div class="column">
-              <img id="Alex" src="../static/newcharacters/Alex.png">
-              <img id="Alfred" src="../static/newcharacters/Alfred.png">
-              <img id="Anita" src="../static/newcharacters/Anita.png">
-              <img id="Anne" src="../static/newcharacters/Anne.png">
-              <img id="Bernard" src="../static/newcharacters/Bernard.png">
-              <img id="Bill" src="../static/newcharacters/Bill.png">
-              <img id="Charles" src="../static/newcharacters/Charles.png">
-              <img id="Claire" src="../static/newcharacters/Claire.png">
+        <div class="card_container">
+          <form action="/game" method="post">
+            <div class="row">
+              <div class="column">
+              {% for character in eliminated %}
+                <img onload="grayscale('{{ character|tojson|safe }}')" id="Alex" src="../static/newcharacters/Alex.png">
+              {% endfor %}
+                <img id="Alfred" src="../static/newcharacters/Alfred.png">
+                <img id="Anita" src="../static/newcharacters/Anita.png">
+                <img id="Anne" src="../static/newcharacters/Anne.png">
+                <img id="Bernard" src="../static/newcharacters/Bernard.png">
+                <img id="Bill" src="../static/newcharacters/Bill.png">
+                <img id="Charles" src="../static/newcharacters/Charles.png">
+                <img id="Claire" src="../static/newcharacters/Claire.png">
+              </div>
+              <div class="column">
+                <img id="David" src="../static/newcharacters/David.png">
+                <img id="Eric" src="../static/newcharacters/Eric.png">
+                <img id="Frans" src="../static/newcharacters/Frans.png">
+                <img id="George" src="../static/newcharacters/George.png">
+                <img id="Herman" src="../static/newcharacters/Herman.png">
+                <img id="Joe" src="../static/newcharacters/Joe.png">
+                <img id="Maria" src="../static/newcharacters/Maria.png">
+                <img id="Max" src="../static/newcharacters/Max.png">
+              </div>
+              <div class="column">
+                <img id="Paul" src="../static/newcharacters/Paul.png">
+                <img id="Peter" src="../static/newcharacters/Peter.png">
+                <img id="Philip" src="../static/newcharacters/Philip.png">
+                <img id="Richard" src="../static/newcharacters/Richard.png">
+                <img id="Robert" src="../static/newcharacters/Robert.png">
+                <img id="Sam" src="../static/newcharacters/Sam.png">
+                <img id="Susan" src="../static/newcharacters/Susan.png">
+                <img id="Tom" src="../static/newcharacters/Tom.png">
+              </div>
             </div>
-            <div class="column">
-              <img id="David" src="../static/newcharacters/David.png">
-              <img id="Eric" src="../static/newcharacters/Eric.png">
-              <img id="Frans" src="../static/newcharacters/Frans.png">
-              <img id="George" src="../static/newcharacters/George.png">
-              <img id="Herman" src="../static/newcharacters/Herman.png">
-              <img id="Joe" src="../static/newcharacters/Joe.png">
-              <img id="Maria" src="../static/newcharacters/Maria.png">
-              <img id="Max" src="../static/newcharacters/Max.png">
-            </div>
-            <div class="column">
-              <img id="Paul" src="../static/newcharacters/Paul.png">
-              <img id="Peter" src="../static/newcharacters/Peter.png">
-              <img id="Philip" src="../static/newcharacters/Philip.png">
-              <img id="Richard" src="../static/newcharacters/Richard.png">
-              <img id="Robert" src="../static/newcharacters/Robert.png">
-              <img id="Sam" src="../static/newcharacters/Sam.png">
-              <img id="Susan" src="../static/newcharacters/Susan.png">
-              <img id="Tom" src="../static/newcharacters/Tom.png">
-            </div>
-          </div>
-        </form>
+          </form>
+    <p> USER BOARd = {{user_board}}</p>
+   <p>COMPUTER BOARD = {{my_board}}</p>
+        <!-- Guess the character by that character's name-->
+        <h1 id="guess">Guess the mystery character!</h1>
+        <div class="form-group">
+          <select id="guessname" name="guessname">
+              <option disabled selected value>NAME</option>
 
-      <!-- Guess the character by that character's name-->
-      <h1 id="guess">Guess the mystery character!</h1>
-      <div class="form-group">
-        <select id="guessname" name="guessname">
-            <option disabled selected value>NAME</option>
+              {% for character in user_board %}
+                  {% if character[1] == 'True' %}
+                      <option value="{{ character[0] }}">{{ character[0] }}</option>
+                  {% endif %}
+              {% endfor %}
 
-            {% for character in user_board %}
-                {% if character[1] == 'True' %}
-                    <option value="{{ character[0] }}">{{ character[0] }}</option>
-                {% endif %}
-            {% endfor %}
-
-        </select>
+          </select>
+        </div>
       </div>
-    </div>
 
       <!-- JS function to convert eliminate characters to black and white -->
-       {% for character in user_board %}
-           {% if character[1] == 'False' %}
-           <script>
+      <script>
+          function grayscale(character) {
+              document.getElementById(character).style.filter = "grayscale(100%)";
+          }
+      </script>
 
-              function grayscale() {
-                  document.getElementById("{{ character[0] }}").style.filter = "grayscale(100%)"
-              }
-
-           </script>
-        {% endif %}
-        {% endfor %}
 
 {% endblock %}
