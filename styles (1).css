@@ -1,0 +1,325 @@
+/* navbar */
+
+.navbar-brand {
+  width: 100%;
+  font-weight: bold;
+  font-size: 55px;
+  color: #007bff;
+  font-family: 'Righteous';
+  -webkit-text-stroke: .5px white;
+  padding-left: 2%;
+}
+
+.navbar-update{
+  background-color: #fb4;
+  font-size: 25px;
+  font-weight: bold;
+  color: #345995;
+}
+
+.nav-item {
+  color: #345995;
+  font-size: 35px;
+  font-family: 'Righteous';
+}
+
+/* sidebar */
+
+.sidenav {
+  height: 100%;
+  margin-top: 0px;
+  padding-top: 2%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #007bff;
+}
+
+#firstdropright {
+  padding-top: 100px;
+  background-color: #007bff;
+  font-size: 24px;
+}
+
+.dropright {
+  padding-top: 12px;
+  background-color: #007bff;
+  font-size: 24px;
+}
+
+.btn {
+  width: 100%;
+  height: 20%;
+  font-size: 100%;
+  background-color: #e40066;
+  padding-bottom: 5%;
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  width: 100%;
+}
+
+.item-color {
+  color: black;
+}
+
+/* card area of main game */
+
+.card_container {
+  padding-top: 30px;
+  padding-right: 15%;
+  text-align: right;
+  float: right;
+  width: 1150px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.column {
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  border: 4px solid black;
+  width: 11%;
+}
+
+#guess {
+  padding-top: 2%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: #007bff;
+  font-family: "Righteous";
+}
+
+#guessname {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.final {
+  width: 20%;
+  height: 25px;
+  margin: auto;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+
+
+
+/* choose.html style */
+
+.headline {
+  padding-top: 2.5%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 45px;
+  color: #007bff;
+  font-family: 'Righteous';
+}
+
+.card_container_choose {
+  padding-top: 30px;
+  float: none;
+  margin: auto;
+  width: 78%;
+  padding-left: 9.3%;
+}
+
+.row_choose {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0 4px;
+}
+
+.column_choose {
+  padding: 4 4px;
+}
+
+.characterchoose {
+  height: 163px;
+  width: 100px;
+  margin-top: 8px;
+  vertical-align: middle;
+  border: 4px solid black;
+  margin: 5px;
+}
+
+.characterchoose:hover {
+  box-shadow: 0 0 11px #007bff;
+}
+
+/* Character images for "Choose Your Character" page */
+.Alex {background: url(resized/Alex.png) no-repeat;}
+.Alfred {background: url(resized/Alfred.png) no-repeat;}
+.Anita {background: url(resized/Anita.png) no-repeat;}
+.Anne {background: url(resized/Anne.png) no-repeat;}
+.Bernard {background: url(resized/Bernard.png) no-repeat;}
+.Bill {background: url(resized/Bill.png) no-repeat;}
+.Charles {background: url(resized/Charles.png) no-repeat;}
+.Claire {background: url(resized/Claire.png) no-repeat;}
+.David {background: url(resized/David.png) no-repeat;}
+.Eric {background: url(resized/Eric.png) no-repeat;}
+.Frans {background: url(resized/Frans.png) no-repeat;}
+.George {background: url(resized/George.png) no-repeat;}
+.Herman {background: url(resized/Herman.png) no-repeat;}
+.Joe {background: url(resized/Joe.png) no-repeat;}
+.Maria {background: url(resized/Maria.png) no-repeat;}
+.Max {background: url(resized/Max.png) no-repeat;}
+.Paul {background: url(resized/Paul.png) no-repeat;}
+.Peter {background: url(resized/Peter.png) no-repeat;}
+.Philip {background: url(resized/Philip.png) no-repeat;}
+.Richard {background: url(resized/Richard.png) no-repeat;}
+.Robert {background: url(resized/Robert.png) no-repeat;}
+.Sam {background: url(resized/Sam.png) no-repeat;}
+.Susan {background: url(resized/Susan.png) no-repeat;}
+.Tom {background: url(resized/Tom.png) no-repeat;}
+
+
+
+/* register.html styling */
+/* adapted from code at https://www.w3schools.com/howto/howto_css_register_form.asp */
+
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.regcontainer {
+  padding-top: 30px;
+  width: 50%;
+  margin: auto;
+  font-family: "Righteous";
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bolder;
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bolder;
+  background-color: #007bff;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  font-weight: bold;
+  width: 50%;
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+
+
+
+/* Account page */
+.accountcontainer {
+  display: box;
+  width: 70%;
+  height: 100%;
+  margin-top: 10%;
+  margin-right: 15%;
+  float: right;
+  background: linear-gradient(to bottom, #007bff 0%, white 100%);
+}
+
+.accountheadline {
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 45px;
+  color: black;
+  font-family: 'Righteous';
+}
+
+.accountsubhead {
+  padding-top: 2.5%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+  font-family: 'Righteous';
+}
+
+
+
+/* Style for about.html */
+
+.aboutcontainer {
+  text-align: center;
+  width: 75%;
+  margin: auto;
+  margin-top: 1.8%;
+}
+
+.infoheader {
+  padding-top: 2%;
+  text-align: center;
+  color: #007bff;
+  font-size: 50px;
+  font-family: 'Righteous';
+  font-weight: bold;
+  -webkit-text-stroke: .2px black;
+
+}
+
+.infotext {
+  padding-top: 2%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.thankyou {
+  margin-top: 3.5%;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
