@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+
+      <!-- Display account info -->
+      <div class="accountcontainer">
+          <h1 class="accountheadline">Username</h1>
+          <h2 class="accountsubhead">{{ user["username"] }}</h2>
+          <h1 class="accountheadline">Total Games Played</h1>
+          <h2 class="accountsubhead">{{ user["gamesplayed"] }}</h2>
+          <h1 class="accountheadline">Total Wins</h1>
+          <h2 class="accountsubhead">{{ user["gameswon"] }}</h2>
+      </div>
+
+{% endblock %}
