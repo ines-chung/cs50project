@@ -176,15 +176,6 @@ def choose():
     else:
         return render_template("choose.html")
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        #TODO
-
-        return render_template("register.html")
-    else:
-        return render_template("register.html")
-
 
 @app.route("/game", methods=["GET", "POST"])
 def game():
@@ -223,7 +214,8 @@ def game():
             elif winner == 1:
                 winner = "YOU"
 
-            return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
+            return redirect ("/win")
+            #return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
 
         is_string = False
 
@@ -238,7 +230,8 @@ def game():
             if question_index == computers_choice:
                 game = game_finished(my_board, user_board, 1)
                 winner = "YOU"
-                return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
+                return redirect ("/win")
+                #return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
 
             else:
                 name_index = all_names.index(question_index)
@@ -268,7 +261,8 @@ def game():
                 winner = "THE COMPUTER"
             elif winner == 1:
                 winner = "YOU"
-            return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
+            return redirect ("/win")
+            #return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
 
         if is_string == False:
             if has_feature == 1:
@@ -303,7 +297,8 @@ def game():
                 winner = "THE COMPUTER"
             elif winner == 1:
                 winner = "YOU"
-            return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
+            return redirect ("/win")
+            #return render_template("win.html", winner = winner, users_choice = users_choice, computers_choice = computers_choice)
 
         '''FLASH THE COMPUTER"S QUESTION'''
         flash(f"{questions[comp_question_index]}?")
@@ -322,24 +317,133 @@ def win():
     global computers_choice
     global users_choice
 
-    if winner == "YOU":
-        db.excecute(" UPDATE users SET gamesplayed = gamesplayed + 1, gameswon = gameswwon + 1 WHERE id = :user_id", user_id = session["user_id"])
-    else:
-        db.excecute(" UPDATE users SET gamesplayed = gamesplayed + 1 WHERE id = :user_id", user_id = session["user_id"])
+    if session.user_id:
+        if winner == "YOU":
+            db.excecute(" UPDATE users SET gamesplayed = gamesplayed + 1, gameswon = gameswwon + 1 WHERE id = :user_id", user_id = session["user_id"])
+        else:
+            db.excecute(" UPDATE users SET gamesplayed = gamesplayed + 1 WHERE id = :user_id", user_id = session["user_id"])
 
     #WIPE ALL THE GAME DATA
-    temp_comp_choice = computers_choice
+    temp_computer_choice = computers_choice
     temp_user_choice = users_choice
     temp_winner = winner
-    flash("SOMETHING")
-    global is_elim
-    is_elim = []
-    global asked
-    asked = []
 
+    global is_elim
+    is_elim.clear()
+    global asked
+    asked.clear()
 
     wipe()
+    flash("SOMETHING")
+
     return render_template("win.html", winner = temp_winner, users_choice = temp_user_choice, computers_choice = temp_computer_choice)
 
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user"""
+
+    # Forget any user_id
+    session.clear()
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            flash("please provide a valid username")
+            return render_template("register.html")
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            flash("Please provide a valid password")
+            return render_template("register.html")
+        # Ensure password and confirmation match
+        elif not request.form.get("password") == request.form.get("confirmation"):
+            flash("Passwords must match")
+            return render_template("register.html")
+
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+
+        # insert username + hashed pw into the database
+        hashed = generate_password_hash(password)
+
+        new_user = db.execute("INSERT INTO users (username, gamesplayed, gameswon, hash) VALUES(:username, 0, 0, :hashed)",
+                                 username=username,
+                                 hashed=hashed)
+
+        # Ensure username doesnt already exist:
+        if not new_user:
+            flash("Username already taken")
+            return render_template("register.html")
+
+        # Remember which user has logged in
+        session["user_id"] = new_user
+
+        # Display a flash message
+        flash("Registration Successful!")
+
+        # Redirect user to home page
+        return render_template("about.html")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("register.html")
+
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            flash("Error 403, Enter valid Username")
+            return redirect("/login")
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            flash("Error 403, Enter valid Password")
+            return redirect("/login")
+        # Query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = :username",
+                          username=request.form.get("username"))
+
+        # Ensure username exists and password is correct
+        if len(rows) < 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+            flash("Error 403, Enter valid Username and Password")
+            return redirect("/login")
+        # Remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+
+        # Redirect user to home page
+        return redirect("/")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("login.html")
+
+
+@app.route("/account")
+def account():
+    #TODO
+    userinfo = db.execute("SELECT * FROM users WHERE id = :user_id",
+                      user_id=session["user_id"])
+    return render_template("account.html", user = userinfo)
+
+@app.route("/leaderboard", methods=["GET"])
+def leaderboard():
+    users = db.excecute("SELECT * FROM users")
+    return render_template("register.html", users = users)
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 
